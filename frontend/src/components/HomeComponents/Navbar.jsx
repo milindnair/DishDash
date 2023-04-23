@@ -1,9 +1,9 @@
 import Logo from "./dishdash-logo.png";
 import Cook from "./cooking.png";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
   return (
-    
     <div className="bg-[#212121] relative border-b-2 p-3">
       <img src={Logo} alt="logo" className="h-[75px] w-[100px] pl-4 " />
 
@@ -41,11 +41,7 @@ const Navbar = () => {
       </div>
 
       {/* user avatar */}
-      <img
-        className="w-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"
-        src={Cook}
-        alt="Rounded avatar"
-      />
+      <Avatar src={Cook} className={"w-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"} alt="user" />
     </div>
   );
 };
