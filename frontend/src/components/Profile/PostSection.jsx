@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import About from './About';
+import Posts from './Posts';
 
 const PostSection = () => {
   const [activeTab, setActiveTab] = useState('About');
@@ -39,31 +41,7 @@ const PostSection = () => {
           } h-1 w-1/2 rounded-full transition-all duration-300`}
         ></div>
       </div>
-      {activeTab === 'About' && (
-        <div className="flex flex-col items-center">
-          <p className="text-gray-700 text-lg font-bold mb-4">Bio</p>
-          <p className="text-gray-600 text-sm mb-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            quis justo nisi. In eu lorem eget tellus placerat condimentum vitae
-            quis odio. Nunc id neque sit amet sapien ullamcorper efficitur non
-            nec elit.
-          </p>
-          <p className="text-gray-700 text-lg font-bold mb-4">Interests</p>
-          <ul className="list-disc list-inside text-gray-600 text-sm mb-8">
-            <li>Traveling</li>
-            <li>Reading</li>
-            <li>Watching movies</li>
-          </ul>
-        </div>
-      )}
-      {activeTab === 'Posts' && (
-        <div className="flex flex-col items-center">
-          <p className="text-gray-700 text-lg font-bold mb-4">Posts</p>
-          <div className="bg-gray-200 w-full h-64 mb-8"></div>
-          <div className="bg-gray-200 w-full h-64 mb-8"></div>
-          <div className="bg-gray-200 w-full h-64 mb-8"></div>
-        </div>
-      )}
+      {activeTab === 'About' ? <About /> : <Posts />}
     </div>
   );
 };
