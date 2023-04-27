@@ -9,7 +9,7 @@ const Home = () => {
     <>
        <Navbar />
        
-      <div className="flex h-screen justify-between w-full bg-[#212121]">
+      <div className="flex h-full justify-between w-full bg-[#212121]">
         <SideDiv />
         <MainDiv />
         <RightDiv />
