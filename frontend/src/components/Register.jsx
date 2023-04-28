@@ -17,9 +17,9 @@ const Register = () => {
             <Title title={"Savor"} subtitle1={"Sign In!"} subtitle2={"Join the feast!"}/>
 
             <form action="" className="flex flex-col gap-4">
-              <Input type="email" name="email" placeholder="Email" />
+              <Input type="username" name="username" placeholder="username" />
               <Input type="password" name="password" placeholder="Password" />
-              <Input type="number" name="number" placeholder="Phone Number" />
+              <Input type="email" name="email" placeholder="Email" />
 
               <Button title={"Register"} />
             </form>
