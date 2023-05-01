@@ -1,7 +1,9 @@
 import UserModel from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import ENV from '../config.js'
+import ENV from '../config.js';
+import otpGenerator from 'otp-generator';
+
 
 //middleware for verify user
 
@@ -162,16 +164,17 @@ export async function getUser(req, res) {
   }
 }
 
-
+//api/updateuser
 export async function updateUser(req, res) {
   try {
-    const id = req.query.id;
+    // const id = req.query.id;
+    const { userId } = req.user;
 
-    if (id) {
+    if (userId) {
       const body = req.body;
 
       // update the data
-      await UserModel.updateOne({ _id: id }, body).exec();
+      await UserModel.updateOne({ _id: userId }, body).exec();
 
       return res.status(201).send({ msg: "User data updated successfully" });
     } else {
@@ -185,11 +188,19 @@ export async function updateUser(req, res) {
 
 
 export async function generateOTP(req, res) {
-  res.json("generateOTP route");
-}
+   req.app.locals.OTP = await otpGenerator.generate(6,{lowerCaseAlphabets:false , upperCaseAlphabets:false , specialChars:false}) ;
+   res.status(201).send({code: req.app.locals.OTP});
+  }
 
 export async function verifyOTP(req, res) {
-  res.json("verifyOTP route");
+ const {code } = req.query;
+ if(parseInt(req.app.locals.OTP) === parseInt(code)){
+  req.app.locals.OTP = null; // reset OTP value
+  req.app.locals.resetSession = true; //set the session for reset password
+  return res.status(201).send({msg: "OTP is valid"});
+ }
+ return res.status(400).send({error: "OTP is invalid"});
+
 }
 
 //successfull redirect when OTP is valid
