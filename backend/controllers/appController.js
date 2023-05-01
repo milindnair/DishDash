@@ -3,9 +3,26 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ENV from '../config.js'
 
+//middleware for verify user
+
+export async function verifyUser(req, res, next) {
+  try {
+    const {username} = req.method === "GET" ? req.query : req.body;
+
+    //check the user existance
+    let exist = await UserModel.findOne({ username }).exec();
+    if (!exist) {
+      return res.status(404).send({ error: "Username not Found" });
+    }
+    next();
+  } catch (error) {
+    return res.status(404).send({ error: "Authentication error" });
+  }
+};
+
 export async function register(req, res) {
   try {
-    const { username, password, email } = req.body;
+    const { username, password, email , profile } = req.body;
     console.log(req.body);
 
     // check the existing user
@@ -58,6 +75,7 @@ export async function register(req, res) {
               const user = new UserModel({
                 username,
                 password: hashedPassword,
+                profile: profile || '', 
                 email,
               });
 
@@ -121,14 +139,50 @@ export async function login(req, res) {
   }
   
   
-
+//GET: localhost:5000/api/user/example123
 export async function getUser(req, res) {
-  res.json("getUser route");
+  const { username } = req.params;
+  try {
+    if(!username) {
+      return res.status(501).send({ error : "Invalid Username" });
+    }
+    const user = await UserModel.findOne({ username }).exec();
+    if(!user) {
+      return res.status(501).send({ error : "User not found" });
+    }
+
+    //remove password from user object
+    //mongoose returnunnecessary data like password and _id so we need to remove it
+   const { password, ...rest } = Object.assign({}, user.toJSON());
+
+            return res.status(201).send(rest);
+  } catch (error) {
+    console.log("Error in getUser controller:", error);
+    return res.status(404).send({ error : "Cannot find user data" });
+  }
 }
+
 
 export async function updateUser(req, res) {
-  res.json("updateUser route");
+  try {
+    const id = req.query.id;
+
+    if (id) {
+      const body = req.body;
+
+      // update the data
+      await UserModel.updateOne({ _id: id }, body).exec();
+
+      return res.status(201).send({ msg: "User data updated successfully" });
+    } else {
+      return res.status(401).send({ error: "User Not found.." });
+    }
+  } catch (error) {
+    console.log("Error in updateUser controller:", error);
+    return res.status(401).send({ error });
+  }
 }
+
 
 export async function generateOTP(req, res) {
   res.json("generateOTP route");
