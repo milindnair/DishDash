@@ -2,8 +2,42 @@ import { Link } from "react-router-dom";
 import Title from "./title";
 import Input from "./Input";
 import Button from "./Button";
+import { verifyPassword } from "../../helper/helper";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const SideDiv = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch({ type: 'LOGIN' });
+    }
+  }, [dispatch]);
+  
+  const loginHandler = async () => {
+    event.preventDefault();
+    console.log("Login");
+    const username = event.target.username.value;
+    const password = event.target.password.value;
+  
+    try {
+      const res = await verifyPassword({ username, password });
+      let { token } = res.data;
+      localStorage.setItem('token', token);
+      dispatch({ type: 'LOGIN' });
+      navigate('/');
+    } catch (error) {
+      // Handle the error
+      
+      console.error("Error:", error);
+    }
+  };
+  
+
   return (
     <div className="md:w-1/2 px-8 md:px-16">
       <Title
@@ -12,10 +46,14 @@ const SideDiv = () => {
         subtitle2={"Please Login to Continue"}
       />
 
-      <form action="" className="flex flex-col gap-4">
-        <Input type="email" name="email" placeholder="Email" />
+      <form
+        action=""
+        className="flex flex-col gap-4"
+        onSubmit={loginHandler}
+      >
+        <Input type="username" name="username" placeholder="username" />
         <Input type="password" name="password" placeholder="Password" />
-        <Button title={"Login"} />
+        <Button title={"Login"} type="submit" />
       </form>
       <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
         <a href="#">Forgot your password?</a>

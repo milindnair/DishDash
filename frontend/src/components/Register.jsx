@@ -6,7 +6,8 @@ import SideDiv from "./authComponents/SideDiv";
 import Title from "./authComponents/title";
 import Input from "./authComponents/Input";
 import Button from "./authComponents/Button";
-
+import axios from 'axios';
+import { registerUser } from "../helper/helper";
 
 
 const Register = () => {
@@ -15,13 +16,12 @@ const Register = () => {
       <Section>
           <div className="md:w-1/2 px-8 md:px-16">
             <Title title={"Savor"} subtitle1={"Sign In!"} subtitle2={"Join the feast!"}/>
-
-            <form action="" className="flex flex-col gap-4">
+            <form action="" className="flex flex-col gap-4" onSubmit={registerUser}>
               <Input type="username" name="username" placeholder="username" />
               <Input type="password" name="password" placeholder="Password" />
               <Input type="email" name="email" placeholder="Email" />
 
-              <Button title={"Register"} />
+              <Button title={"Register"} type="submit" />
             </form>
             <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
               <p>Already  have an account?</p>

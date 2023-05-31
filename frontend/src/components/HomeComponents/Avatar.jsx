@@ -1,11 +1,51 @@
+import { useState } from 'react';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+
 const Avatar = (props) => {
-    return(
-        <img
-        className={props.className}
-        src={props.src}
-        alt="Rounded avatar"
-      />
-    )
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleProfileClick = () => {
+    // Handle profile click logic here
+  };
+
+  const handleLogoutClick = () => {
+    // Handle logout click logic here
+    localStorage.removeItem('token');
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login');
+
+  };
+
+  return(
+    <>
+    <img
+    className={props.className}
+    src={props.src}
+    alt="Rounded avatar"
+    onClick={toggleDropdown}
+  />
+
+  {isDropdownOpen && (
+    <div className="absolute top-full right-0 mt-1/2 py-2 bg-white shadow-lg rounded">
+      <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200" onClick={handleProfileClick}>
+        Profile
+      </button>
+      <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200" onClick={handleLogoutClick}>
+        Logout
+      </button>
+    </div>
+  )}
+  </>
+);
 };
 
 export default Avatar;
