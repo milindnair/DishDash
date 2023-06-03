@@ -11,14 +11,7 @@ const SideDiv = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      dispatch({ type: 'LOGIN' });
-    }
-  }, [dispatch]);
-  
-  const loginHandler = async () => {
+  const loginHandler = async (event) => {
     event.preventDefault();
     console.log("Login");
     const username = event.target.username.value;
@@ -26,16 +19,25 @@ const SideDiv = () => {
   
     try {
       const res = await verifyPassword({ username, password });
-      let { token } = res.data;
+      const { token } = res.data;
       localStorage.setItem('token', token);
-      dispatch({ type: 'LOGIN' });
+      dispatch({ type: 'LOGIN', username: username });
       navigate('/');
     } catch (error) {
-      // Handle the error
-      
       console.error("Error:", error);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+
+    if (token && storedUsername) {
+      dispatch({ type: 'LOGIN', username: storedUsername });
+    }
+  }, [dispatch]);
+  
+  
   
 
   return (

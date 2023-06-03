@@ -1,10 +1,14 @@
 import Navbar from "./HomeComponents/Navbar";
 import ProfileContainer from "./Profile/ProfileContainer";
 import PostSection from "./Profile/PostSection";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-const name = 'John Doe';
-  const userId = 'johndoe123';
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const username = useSelector(state => state.username);
+
+// const name = 'John Doe';
+//   const userId = 'johndoe123';
   const posts = 10;
   const followers = 100;
   const following = 50;
@@ -13,8 +17,7 @@ const name = 'John Doe';
     <div className="container mx-auto h-screen bg-[#212121]">
         <Navbar />
       <ProfileContainer
-        name={name}
-        userId={userId}
+        userId={username}
         posts={posts}
         followers={followers}
         following={following}

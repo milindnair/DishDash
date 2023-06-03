@@ -4,13 +4,12 @@ import Avatar from '../HomeComponents/Avatar';
 import Cook from '../HomeComponents/cooking.png';
 import ProfileStats from './ProfileStats';
 
-const ProfileContainer = ({ name, userId, posts, followers, following }) => {
+const ProfileContainer = ({ userId, posts, followers, following }) => {
   return (
     <div className="flex flex-col items-center justify-center w-full pt-4 bg-[#212121]">
       <div className="w-32 h-32 rounded-full overflow-hidden">
         <Avatar src={Cook}/>
       </div>
-      <h2 className="mt-4 text-lg font-bold">{name}</h2>
       <p className="text-sm text-gray-500">@{userId}</p>
       <ProfileStats posts={posts} followers={followers} following={following} />
       <div className="mt-4 flex">

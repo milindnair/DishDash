@@ -15,6 +15,7 @@ const Avatar = (props) => {
 
   const handleProfileClick = () => {
     // Handle profile click logic here
+    navigate('/profile');
   };
 
   const handleLogoutClick = () => {
