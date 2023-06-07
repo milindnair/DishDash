@@ -1,8 +1,16 @@
 import Logo from "./dishdash-logo.png";
 import Cook from "./cooking.png";
 import Avatar from "./Avatar";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const NewPostHandler = () => {
+    // Handle new post click logic here
+    console.log("New Post");
+    navigate("/newpost");
+  };
+  
   return (
     <div className="bg-[#212121] relative border-b-2 p-3">
       <img src={Logo} alt="logo" className="h-[75px] w-[100px] pl-4 " />
@@ -34,7 +42,7 @@ const Navbar = () => {
 
       {/* create post button */}
       <div>
-        <button className="bg-[#ff4545] absolute top-1/2 w-[180px] transform -translate-y-1/2 right-[90px] text-[#fff] rounded-xl p-2 flex gap-4 ">
+        <button className="bg-[#ff4545] absolute top-1/2 w-[180px] transform -translate-y-1/2 right-[90px] text-[#fff] rounded-xl p-2 flex gap-4 " onClick={NewPostHandler}>
           <img src={Cook} alt="cooking" className="h-[25px] w-[40px] pl-4  " />
           Create Post
         </button>

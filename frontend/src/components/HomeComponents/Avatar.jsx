@@ -26,6 +26,11 @@ const Avatar = (props) => {
 
   };
 
+  const handleHomeClick = () => {
+    // Handle home click logic here
+    navigate('/');
+  };
+
   return(
     <>
     <img
@@ -42,6 +47,9 @@ const Avatar = (props) => {
       </button>
       <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200" onClick={handleLogoutClick}>
         Logout
+      </button>
+      <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200" onClick={handleHomeClick}>
+        Home
       </button>
     </div>
   )}
