@@ -1,6 +1,5 @@
 // import {Input} from "../authComponents/Input";
-import { useState,useEffect } from "react";
-import Input from "../authComponents/Input";
+import { useState,useEffect,useRef } from "react";
 import Button from "../authComponents/Button";
 import Navbar from "../HomeComponents/Navbar";
 import Section from "../authComponents/Section";
@@ -8,10 +7,15 @@ import Carousel from "./Carousel.jsx";
 import {createPost} from "../../helper/posthelper";
 import HashLoader from "react-spinners/HashLoader"; 
 import { useNavigate } from "react-router-dom";
+import Snackbar from "./Snackbar";
 
-
+const SnackbarType = {
+  success: "success",
+  fail: "fail",
+};
 const MAX_COUNT = 5;
 const NewPostForm = () => {
+  const snackbarRef = useRef(null);
   const navigate = useNavigate();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [fileLimit, setFileLimit] = useState(false);
@@ -77,8 +81,12 @@ const NewPostForm = () => {
       .then((data) => {
         console.log('post created');
         console.log(data);
-        setIsLoading(false); // Set isLoading to false when the request is complete
-        navigate('/');
+        
+        snackbarRef.current.show(); // Show the snackbar
+        setTimeout(() => {
+          setIsLoading(false); // Set isLoading to false after the snackbar is displayed
+          navigate('/');
+        }, 3000); // Delay navigation by 3 seconds (adjust as needed)
       })
       .catch((error) => {
         console.error(error);
@@ -151,6 +159,11 @@ const NewPostForm = () => {
         )}
          
       </Section>
+      <Snackbar
+        ref={snackbarRef}
+        message="Task Completed Successfully!"
+        type={SnackbarType.success}
+      />
     </div>
   );
 };
