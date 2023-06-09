@@ -12,7 +12,7 @@ export async function authenticate(username){
 
 export async function getUser({username}){
     try{
-       const {data} =  await axios.get(`/api/getUser/${username}`);
+       const {data} =  await axios.get(`http://localhost:8080/api/user/${username}`);
          return data;
     }catch(error){
         return{error : "Password doesnt match"};
@@ -105,3 +105,4 @@ export async function resetPassword({username , password}){
         return Promise.reject({error});
     }
 } 
+

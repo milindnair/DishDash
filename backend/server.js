@@ -6,33 +6,26 @@ import router from './router/route.js';
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' })); // Increase payload size limit to 10MB
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());
 app.use(morgan('tiny'));
-app.disable('x-powered-by'); //less hackers know about our server
+app.disable('x-powered-by');
 
 const port = 8080;
 
-//http get request
-
 app.get('/', (req, res) => {
-    res.status(201).json("Home Get request");
+  res.status(201).json('Home Get request');
 });
 
-//api routes
 app.use('/api', router);
 
-//start server only when have valid connection with db
-connect().then(() => {
-    try{
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
-    }
-    catch(err){
-        console.log(err);
-    }
-
-}).catch((err) => {
-    console.log("Invalid database connection");
-});
+connect()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log('Invalid database connection');
+  });

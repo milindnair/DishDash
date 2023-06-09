@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String, // Store the username as a string
     required: true
   },
-  image_url: {
-    type: String,
+  image_urls: {
+    type: [String], // Array of strings to store multiple image URLs
     required: true
   },
   caption: {
@@ -20,13 +19,10 @@ const postSchema = new mongoose.Schema({
   },
   comments: [{
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      // required: true
+      type: String, // Store the username as a string
     },
     text: {
       type: String,
-      // required: true
     },
     created_at: {
       type: Date,
@@ -38,6 +34,7 @@ const postSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 const Post = mongoose.model('Post', postSchema);
 

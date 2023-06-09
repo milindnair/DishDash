@@ -1,16 +1,16 @@
 import Post from "../model/postsModel.js";
 
 // Controller for creating a new post
-export default async function createPost (req, res) {
+export  async function createPost(req, res) {
   try {
-    const { user, image_url, caption, comments } = req.body;
+    const { user, image_urls, caption, comments } = req.body;
 
     // Create a new post
     const post = new Post({
       user,
-      image_url,
+      image_urls,
       caption,
-      comments
+      comments,
     });
 
     // Save the post to the database
@@ -21,6 +21,19 @@ export default async function createPost (req, res) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Server Error' });
   }
-};
+}
 
+// Controller for getting all posts
+export async function getPosts(req, res) {
+  try {
+    const { username } = req.params; // Assuming you pass the userId in the request parameters
+
+    const posts = await Post.find({ user: username }).populate('user').exec();
+
+    res.status(200).json({ success: true, posts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+}
 
