@@ -6,6 +6,7 @@ import router from './router/route.js';
 
 const app = express();
 
+
 app.use(express.json({ limit: '10mb' })); // Increase payload size limit to 10MB
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());

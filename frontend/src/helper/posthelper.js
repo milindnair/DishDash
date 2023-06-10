@@ -14,11 +14,12 @@ export   async function createPost({post}){
 }
 
 //fetch posts from db
-export async function getPosts(username){
-    try{
-       const {data} =  await axios.get(`http://localhost:8080/api/getPosts/${username}`);
-         return data;
-    }catch(error){
-        return{error : "Couldnt find posts due to error: " + error};
+export async function getPosts(username) {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/getPosts/${username}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return { error: 'Could not find posts due to error: ' + error };
     }
-}
+  }

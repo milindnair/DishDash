@@ -26,13 +26,13 @@ const NewPostForm = () => {
   const handleUploadFiles = async (files) => {
     const uploaded = [...uploadedFiles];
     let limitExceeded = false;
-
+  
     for (const file of files) {
       const existingFileIndex = uploaded.findIndex((f) => f.name === file.name);
       if (existingFileIndex === -1) {
         const objectURL = URL.createObjectURL(file);
-        const base64Data = await readAsDataURL(file);
-        uploaded.push({ name: file.name, url: objectURL, base64: base64Data });
+        const binaryData = await readAsBinaryData(file);
+        uploaded.push({ name: file.name, url: objectURL, binary: binaryData });
         if (uploaded.length === MAX_COUNT) setFileLimit(true);
         if (uploaded.length > MAX_COUNT) {
           alert(`You can only add a maximum of ${MAX_COUNT} files`);
@@ -42,20 +42,23 @@ const NewPostForm = () => {
         }
       }
     }
-
+  
     if (!limitExceeded) setUploadedFiles(uploaded);
   };
-
-  const readAsDataURL = (file) => {
+  
+  const readAsBinaryData = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
-        resolve(reader.result);
+        const arrayBuffer = reader.result;
+        const binaryData = new Uint8Array(arrayBuffer);
+        resolve(binaryData);
       };
       reader.onerror = reject;
-      reader.readAsDataURL(file);
+      reader.readAsArrayBuffer(file);
     });
   };
+  
 
   useEffect(() => {
     console.log(uploadedFiles);
@@ -72,10 +75,12 @@ const NewPostForm = () => {
     const caption = event.target[1].value;
     const user = localStorage.getItem('username');
     const comments = [];
-    const imageurl = uploadedFiles.map((file) => file.base64);
-    const post = { user: user, image_urls: imageurl, caption, comments };
+    const imageurl = uploadedFiles.map((file) => file.binary);
+    const post = { user: user, image_urls:imageurl, caption, comments };
+
 
     setIsLoading(true); // Set isLoading to true when submitting the form
+    console.log(post);
 
     createPost({ post })
       .then((data) => {

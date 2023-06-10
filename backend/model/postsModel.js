@@ -2,13 +2,19 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
   user: {
-    type: String, // Store the username as a string
+    type: String,
     required: true
   },
-  image_urls: {
-    type: [String], // Array of strings to store multiple image URLs
-    required: true
-  },
+  image_urls: [{
+    key: {
+      type: String,
+      required: true
+    },
+    value: {
+      type: String,
+      required: true
+    }
+  }],
   caption: {
     type: String,
     required: true
@@ -19,7 +25,7 @@ const postSchema = new mongoose.Schema({
   },
   comments: [{
     user: {
-      type: String, // Store the username as a string
+      type: String,
     },
     text: {
       type: String,
@@ -34,7 +40,6 @@ const postSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
 
 const Post = mongoose.model('Post', postSchema);
 
