@@ -8,6 +8,7 @@ import {createPost} from "../../helper/posthelper";
 import HashLoader from "react-spinners/HashLoader"; 
 import { useNavigate } from "react-router-dom";
 import Snackbar from "./Snackbar";
+import axios from "axios";
 
 const SnackbarType = {
   success: "success",
@@ -31,8 +32,7 @@ const NewPostForm = () => {
       const existingFileIndex = uploaded.findIndex((f) => f.name === file.name);
       if (existingFileIndex === -1) {
         const objectURL = URL.createObjectURL(file);
-        const binaryData = await readAsBinaryData(file);
-        uploaded.push({ name: file.name, url: objectURL, binary: binaryData });
+        uploaded.push({ name: file.name, url: objectURL, file: file });
         if (uploaded.length === MAX_COUNT) setFileLimit(true);
         if (uploaded.length > MAX_COUNT) {
           alert(`You can only add a maximum of ${MAX_COUNT} files`);
@@ -46,58 +46,72 @@ const NewPostForm = () => {
     if (!limitExceeded) setUploadedFiles(uploaded);
   };
   
-  const readAsBinaryData = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const arrayBuffer = reader.result;
-        const binaryData = new Uint8Array(arrayBuffer);
-        resolve(binaryData);
-      };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(file);
-    });
-  };
-  
-
   useEffect(() => {
     console.log(uploadedFiles);
   }, [uploadedFiles]);
-
+  
   const handleFileEvent = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     handleUploadFiles(chosenFiles);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const caption = event.target[1].value;
     const user = localStorage.getItem('username');
     const comments = [];
-    const imageurl = uploadedFiles.map((file) => file.binary);
-    const post = { user: user, image_urls:imageurl, caption, comments };
-
-
-    setIsLoading(true); // Set isLoading to true when submitting the form
+    const imageUrls = [];
+  
+    for (const file of uploadedFiles) {
+      const formData = new FormData();
+      console.log(file.file);
+      formData.append('file', file.file);
+      formData.append('upload_preset', 'uk9mlazu');
+  
+      try {
+        const response = await axios.post(
+          'https://api.cloudinary.com/v1_1/dltouwcph/image/upload',
+          formData
+        );
+  
+        const imageUrl = response.data.secure_url;
+        imageUrls.push(imageUrl);
+        console.log('File uploaded successfully:', response.data);
+      } catch (error) {
+        console.log('Error uploading file:', error);
+        return false;
+      }
+    }
+  
+    setIsLoading(true);
+  
+    const post = {
+      user: user,
+      image_urls: imageUrls,
+      caption: caption,
+      comments: comments,
+    };
+  
     console.log(post);
-
+  
     createPost({ post })
       .then((data) => {
-        console.log('post created');
+        console.log('Post created');
         console.log(data);
-        
-        snackbarRef.current.show(); // Show the snackbar
+  
+        snackbarRef.current.show();
         setTimeout(() => {
-          setIsLoading(false); // Set isLoading to false after the snackbar is displayed
+          setIsLoading(false);
           navigate('/');
-        }, 3000); // Delay navigation by 3 seconds (adjust as needed)
+        }, 3000);
       })
       .catch((error) => {
         console.error(error);
-        setIsLoading(false); // Set isLoading to false in case of an error
+        setIsLoading(false);
       });
   };
+  
 
   return (
     <div>

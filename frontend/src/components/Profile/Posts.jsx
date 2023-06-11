@@ -15,10 +15,11 @@ const Posts = () => {
         try {
           console.log(user);
           const response = await getPosts(user);
+          console.log(response);
           const postsWithBase64Images = response.posts.map((post) => {
-            const binaryData = post.image_urls[0].value.split(',').map(Number);
-            const base64String = arrayBufferToBase64(binaryData);
-            return { ...post, base64Image: base64String };
+            const images = post.image_urls[0].value;
+            
+            return { ...post, base64Image: images };
           });
           setPosts(postsWithBase64Images);
           setIsPostsLoaded(true);
@@ -30,17 +31,6 @@ const Posts = () => {
       fetchPosts();
     }
   }, [isPostsLoaded, user]);
-
-  // Function to convert Uint8Array to Base64 encoded string
-  const arrayBufferToBase64 = (buffer) => {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  };
 
   return (
     <div className="flex flex-col items-center">
@@ -56,7 +46,7 @@ const Posts = () => {
               key={post._id}
               className="w-full h-64 bg-gray-200 rounded-lg mb-4 hover:shadow-lg transition-all duration-300"
               style={{
-                backgroundImage: `url(data:image/jpeg;base64,${post.base64Image})`,
+                backgroundImage: `url(${post.base64Image})`,
               }}
             ></div>
           ))}
