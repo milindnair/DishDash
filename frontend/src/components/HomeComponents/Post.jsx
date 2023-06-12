@@ -3,23 +3,20 @@ import yumGif from "./yum.gif";
 import yukGif from "./yuk.gif";
 import yum1Gif from "./yum1.gif";
 import yuk1Gif from "./yuk1.gif";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Avatar from "./Avatar";
 import Cook from "./cooking.png";
 import Button from "../authComponents/Button";
+import Carousel from "../PostComponents/Carousel";
+import { getFeedPosts } from "../../helper/posthelper";
+import { addComment } from "../../helper/posthelper";
 
 const Post = () => {
   const [isYuk, setIsYuk] = useState(false);
   const [isYum, setIsYum] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  
-  const comments = [
-    { username: 'User1', comment: 'Great post!' },
-    { username: 'User2', comment: 'I love this recipe!' },
-    { username: 'User3', comment: 'Amazing presentation!' },
-    { username: 'User4', comment: 'Thanks for sharing!' },
-    { username: 'User5', comment: 'Yummy!' }
-  ];
+  const [posts, setPosts] = useState([]);
+  const [commentText, setCommentText] = useState("");
   
   const handleYukClick = () => {
     setIsYuk(true);
@@ -43,9 +40,42 @@ const Post = () => {
     setShowComments(!showComments);
   };
 
+  const addCommentHandler = async (postId) => {
+    try {
+      if(!commentText){
+        alert("Comment cannot be empty");
+        return;
+      } 
+      const username = localStorage.getItem('username');
+      await addComment({ postId, username, text: commentText });
+      setCommentText(''); // Clear the input field
+  
+      // Additional logic or UI updates after adding the comment
+    } catch (error) {
+      console.error('Error:', error.message);
+      // Handle the error state or display an error message to the user
+    }
+  };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const username = localStorage.getItem("username");
+        const response = await getFeedPosts(username);
+        console.log(response);
+        setPosts(response);
+      } catch (error) {
+        console.log("Error:", error.message);
+      }
+    };
+  
+    fetchPosts();
+  }, []);
+
   return (
     <div className="mt-5">
-      <Card height={showComments ? 910 : 720} width={720}>
+      {posts.map((post) => (
+        <Card key={post._id} height={showComments ? 980 : 790} width={720}>
         <div className="flex justify-between">
           <div className="flex">
             <img
@@ -54,7 +84,7 @@ const Post = () => {
               className="rounded-full h-10 w-10"
             />
             <div className="ml-2">
-              <h1 className="text-black font-bold">Username</h1>
+              <h1 className="text-black font-bold">{post.user}</h1>
               <h1 className="text-gray-400">Date</h1>
             </div>
           </div>
@@ -79,16 +109,20 @@ const Post = () => {
             </div>
           </div>
         </div>
+        
+       
+          <Carousel slides={post.image_urls}   />
+        
+          {/* <div className="mt-5">
+           <img
+             src="https://picsum.photos/720/500"
+             alt="post"
+             className="rounded-lg"
+             style={{ height: "500px", width: "720px" }}
+           />
+         </div> */}
         <div className="mt-5">
-          <img
-            src="https://picsum.photos/720/500"
-            alt="post"
-            className="rounded-lg"
-            style={{ height: "500px", width: "720px" }}
-          />
-        </div>
-        <div className="mt-5">
-          <p className="text-black-400">Caption</p>
+          <p className="text-black-400">{post.caption}</p>
         </div>
         <div className="mt-5 flex flex-col  ">
           <div className="flex justify-between">
@@ -97,27 +131,38 @@ const Post = () => {
               type="text"
               className="w-4/6 border border-gray-300 p-2 rounded-md focus:outline-none"
               placeholder="Comment on this post"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
             />
             <Button
+              onClick={() => addCommentHandler(post._id)}
+              type="submit"
+              title="Post Comment"
+            />
+          </div>
+        <div className="mt-2">
+        <Button
               onClick={commentHandler}
               type="submit"
               title="View Comments"
             />
-          </div>
+        </div>
 
           {showComments && (
-            <div className="mt-5 h-40 overflow-y-auto flex flex-col gap-4">
-              {/* Map and render comments */}
-              {comments.map((comment, index) => (
-                <div key={index}>
-                  <h2>{comment.username}</h2>
-                  <p>{comment.comment}</p>
-                </div>
+            <div className=" h-40 overflow-y-auto flex flex-col gap-4">
+              
+              {post.comments.map((comment, index) => (
+                <div key={index} className="flex align-center">
+                <h2 style={{ marginRight: '10px' }}>{comment.user}</h2>
+                <p>{comment.text}</p>
+              </div>
+              
               ))}
             </div>
           )}
         </div>
       </Card>
+        ))};
     </div>
   );
 };

@@ -29,6 +29,8 @@ router.route('/resetPassword').put(controller.verifyUser, controller.resetPasswo
 
 router.route('/createPost').post(postcontroller.createPost); // create a post
 router.route('/getPosts/:username').get(postcontroller.getPosts); // get all posts
+router.route('/getFeedPosts/:username').get(postcontroller.getFeedPosts); // get all posts on feed
+router.route('/addComment/:postId').post(postcontroller.addComment); // add comment to post
 
 
 

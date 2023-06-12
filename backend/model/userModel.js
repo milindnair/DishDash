@@ -1,29 +1,43 @@
 import mongoose from "mongoose";
 
 export const UserSchema = new mongoose.Schema({
-    username : {
-        type: String,
-        required : [true, "Please provide unique Username"],
-        unique: [true, "Username Exist"]
+    username: {
+      type: String,
+      required: [true, "Please provide a unique username"],
+      unique: [true, "Username already exists"],
     },
     password: {
-        type: String,
-        required: [true, "Please provide a password"],
-        unique : false,
+      type: String,
+      required: [true, "Please provide a password"],
     },
     email: {
-        type: String,
-        required : [true, "Please provide a unique email"],
-        unique: true,
+      type: String,
+      required: [true, "Please provide a unique email"],
+      unique: true,
     },
-    firstName: { type: String},
-    lastName: { type: String},
-    mobile : { type : Number},
-    address: { type: String},
-    profile: { type: String},
-    visibility: { type: String , default: 'public' },
-    following: { type: Number, default: 0},
-    followers: { type: Number, default: 0},
-});
+    firstName: String,
+    lastName: String,
+    mobile: Number,
+    address: String,
+    profile: String,
+    visibility: {
+      type: String,
+      default: 'public',
+    },
+    following: [{
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      username: String,
+    }],
+    followers: [{
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      username: String,
+    }],
+  });
 
 export default mongoose.model.Users || mongoose.model('User', UserSchema);
