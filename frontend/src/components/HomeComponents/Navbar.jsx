@@ -2,15 +2,40 @@ import Logo from "./dishdash-logo.png";
 import Cook from "./cooking.png";
 import Avatar from "./Avatar";
 import { useNavigate } from "react-router-dom";
+import Search from "./Search";
+import axios from "axios";
+import { useState } from "react";
+import { getUser } from "../../helper/helper";
 
 const Navbar = () => {
+  const [searchText, setSearchText] = useState("");
+
   const navigate = useNavigate();
   const NewPostHandler = () => {
     // Handle new post click logic here
     console.log("New Post");
     navigate("/newpost");
   };
+
+  const searchHandler = async (event) => {
+    event.preventDefault(); // Prevent page reload
   
+    try {
+      console.log(searchText);
+      const res = await getUser({ username:searchText });
+      console.log(res);
+      if(res.username === localStorage.getItem("username")){
+        navigate("/profile");
+      }
+      else{
+        navigate(`/profile/${res.username}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
   return (
     <div className="bg-[#212121] relative border-b-2 p-3">
       <img src={Logo} alt="logo" className="h-[75px] w-[100px] pl-4 " />
@@ -23,33 +48,28 @@ const Navbar = () => {
         >
           Search
         </label>
-        <div className="relative ">
-          <input
-            type="search"
-            id="default-search"
-            className="block absolute right-[300px] top-1/2 transform -translate-y-1/2 w-[350px] p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Mockups, Logos..."
-            required
-          />
-          <button
-            type="submit"
-            className="text-white absolute right-[200px] h-[41px] w-[80px] top-1/2 transform -translate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Search
-          </button>
-        </div>
+        <Search searchText={searchText} setSearchText={setSearchText} onClick={searchHandler} />
       </form>
 
-      {/* create post button */}
+ 
       <div>
-        <button className="bg-[#ff4545] absolute top-1/2 w-[180px] transform -translate-y-1/2 right-[90px] text-[#fff] rounded-xl p-2 flex gap-4 " onClick={NewPostHandler}>
+        <button
+          className="bg-[#ff4545] absolute top-1/2 w-[180px] transform -translate-y-1/2 right-[90px] text-[#fff] rounded-xl p-2 flex gap-4 "
+          onClick={NewPostHandler}
+        >
           <img src={Cook} alt="cooking" className="h-[25px] w-[40px] pl-4  " />
           Create Post
         </button>
       </div>
 
-      {/* user avatar */}
-      <Avatar src={Cook} className={"w-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"} alt="user" />
+      
+      <Avatar
+        src={Cook}
+        className={
+          "w-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"
+        }
+        alt="user"
+      />
     </div>
   );
 };
