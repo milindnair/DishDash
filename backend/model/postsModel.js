@@ -23,6 +23,16 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  dislikes:{
+    type: Number,
+    default: 0
+  },
+  liked_by: [{
+    type: String
+  }],
+  disliked_by: [{
+    type: String
+  }],
   comments: [{
     user: {
       type: String,

@@ -17,11 +17,12 @@ const Posts = () => {
           const response = await getPosts(user);
           console.log(response);
           const postsWithBase64Images = response.posts.map((post) => {
-            const images = post.image_urls[0].value;
+            const images = post.image_urls[0].url;
             
             return { ...post, base64Image: images };
           });
           setPosts(postsWithBase64Images);
+          console.log(posts);
           setIsPostsLoaded(true);
         } catch (error) {
           console.error(error);

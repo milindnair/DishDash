@@ -47,3 +47,24 @@ export async function addComment({postId, username,text}){
     }
 }
 
+export async function likePost({postId, username}){
+    try{
+        const response = await axios.put('http://localhost:8080/api/likePost', {postId,username});
+        console.log(response.data);
+        return Promise.resolve(response.data);
+    }catch(error){
+        console.error(error);
+        return Promise.reject(error);
+    }
+}
+
+export async function dislikePost({postId, username}){
+    try{
+        const response = await axios.put('http://localhost:8080/api/unlikePost', {postId,username});
+        console.log(response.data);
+        return Promise.resolve(response.data);
+    }catch(error){
+        console.error(error);
+        return Promise.reject(error);
+    }
+}

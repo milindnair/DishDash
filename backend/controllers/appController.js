@@ -152,7 +152,7 @@ export async function getUser(req, res) {
     }
 
     //remove password from user object
-    //mongoose returnunnecessary data like password and _id so we need to remove it
+    //mongoose return unnecessary data like password and _id so we need to remove it
     const { password, ...rest } = Object.assign({}, user.toJSON());
 
     return res.status(201).send(rest);
