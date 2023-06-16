@@ -22,13 +22,11 @@ const Navbar = () => {
   
     try {
       console.log(searchText);
-     
-      console.log(res);
       if(searchText === localStorage.getItem("username")){
         navigate("/profile");
       }
       else{
-        navigate(`/profile/${res.username}`);
+        navigate(`/profile/${searchText}`);
       }
     } catch (error) {
       console.log(error);

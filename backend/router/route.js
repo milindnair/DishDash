@@ -6,6 +6,7 @@ import * as controller from '../controllers/appController.js';
 import {Auth,localVariables} from '../middleware/auth.js';
 import { registerMail } from '../controllers/mailer.js';
 import * as postcontroller from "../controllers/postController.js";
+import * as networkController from "../controllers/networkController.js";
 
 
 
@@ -34,6 +35,8 @@ router.route('/addComment/:postId').post(postcontroller.addComment); // add comm
 
 router.route('/likePost').put(postcontroller.likePost); // like a post
 router.route('/unlikePost').put(postcontroller.unlikePost); // unlike a post
+router.route('/followUser').put(networkController.followUser); // follow a user
+router.route('/unfollowUser').put(networkController.unfollowUser); // unfollow a user
 
 
 

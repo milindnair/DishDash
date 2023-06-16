@@ -19,7 +19,7 @@ useEffect(() => {
       try {
         const user = await getUser({ username: username });
         console.log(user);
-        setUser(user);
+        setUser({user});
         // Use the user data here or set it to the component's state
       } catch (error) {
         console.log(error);
@@ -30,6 +30,7 @@ useEffect(() => {
   }, [username]);
 
   const posts = user.posts ? user.posts.length : 0;
+  console.log(user);
   const followers = user.followers ? user.followers.length : 0;
   const following = user.following ? user.following.length : 0;
 
@@ -37,10 +38,11 @@ useEffect(() => {
     <div className="container mx-auto h-screen bg-[#212121]">
         <Navbar />
       <ProfileContainer
-        userId={username}
+        username={username}
         posts={posts}
         followers={followers}
         following={following}
+        from={"Profile"}
       />
         <PostSection user={localStorage.getItem('username')}/>
     </div>

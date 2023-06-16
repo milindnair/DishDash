@@ -6,6 +6,7 @@ import { verifyPassword } from "../../helper/helper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { getUser } from "../../helper/helper";
 
 const SideDiv = () => {
   const navigate = useNavigate();
@@ -21,7 +22,8 @@ const SideDiv = () => {
       const res = await verifyPassword({ username, password });
       const { token } = res.data;
       localStorage.setItem('token', token);
-      dispatch({ type: 'LOGIN', username: username });
+      const user = await getUser({ username: username });
+      dispatch({ type: 'LOGIN', username: username , email: user.email,followers:user.followers,following:user.following,posts:user.posts });
       navigate('/');
     } catch (error) {
       console.error("Error:", error);
