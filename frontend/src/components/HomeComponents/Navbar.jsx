@@ -22,9 +22,9 @@ const Navbar = () => {
   
     try {
       console.log(searchText);
-      const res = await getUser({ username:searchText });
+     
       console.log(res);
-      if(res.username === localStorage.getItem("username")){
+      if(searchText === localStorage.getItem("username")){
         navigate("/profile");
       }
       else{

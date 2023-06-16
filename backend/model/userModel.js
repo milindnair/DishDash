@@ -38,6 +38,10 @@ export const UserSchema = new mongoose.Schema({
       },
       username: String,
     }],
+    posts: {
+      type: Number,
+      default: 0,
+    },
   });
 
 export default mongoose.model.Users || mongoose.model('User', UserSchema);

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getPosts } from '../../helper/posthelper';
 import RingLoader from 'react-spinners/RingLoader';
 
-const Posts = () => {
-  const user = localStorage.getItem('username');
+const Posts = (props) => {
+  const user = props.user;
   console.log(user);
 
   const [posts, setPosts] = useState([]);

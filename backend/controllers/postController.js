@@ -23,6 +23,7 @@ export async function createPost(req, res) {
 
     // Save the post to the database
     await post.save();
+    await User.updateOne({ user: user}, { $inc: { posts: 1 } });
 
     res.status(201).json({ success: true, post });
   } catch (error) {

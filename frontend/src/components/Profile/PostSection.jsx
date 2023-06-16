@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import About from './About';
 import Posts from './Posts';
 
-const PostSection = () => {
+const PostSection = (props) => {
   const [activeTab, setActiveTab] = useState('About');
 
   const handleTabClick = (tabName) => {
@@ -41,7 +41,7 @@ const PostSection = () => {
           } h-1 w-1/2 rounded-full transition-all duration-300`}
         ></div>
       </div>
-      {activeTab === 'About' ? <About /> : <Posts />}
+      {activeTab === 'About' ? <About /> : <Posts user={props.user}/>}
     </div>
   );
 };
