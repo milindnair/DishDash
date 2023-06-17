@@ -30,6 +30,8 @@ const ProfileView = () => {
       const followers = user.followers ? user.followers.length : 0;
       const following = user.following ? user.following.length : 0;
       console.log(user._id); // Now user._id should have the correct value
+      console.log(followers);
+      const ProfilePic = user.profilePic;
       
 
   return (
@@ -41,7 +43,8 @@ const ProfileView = () => {
         followers={followers}
         following={following}
         from={"ProfileView"}
-        userId ={user._id}        
+        userId ={user._id}  
+        ProfilePic={ProfilePic}      
       />
         <PostSection user={username}/>
     </div>

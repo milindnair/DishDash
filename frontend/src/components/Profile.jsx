@@ -17,9 +17,9 @@ const [user,setUser] = useState({});
 useEffect(() => {
     const fetchUser = async () => {
       try {
-        const user = await getUser({ username: username });
-        console.log(user);
-        setUser({user});
+        const userdata = await getUser({ username: username });
+        console.log(userdata);
+        setUser(userdata);
         // Use the user data here or set it to the component's state
       } catch (error) {
         console.log(error);
@@ -43,8 +43,9 @@ useEffect(() => {
         followers={followers}
         following={following}
         from={"Profile"}
+        profilePic={user.profilePic}
       />
-        <PostSection user={localStorage.getItem('username')}/>
+        <PostSection user={sessionStorage.getItem('username')}/>
     </div>
   );
 };

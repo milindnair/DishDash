@@ -166,13 +166,13 @@ export async function getUser(req, res) {
 export async function updateUser(req, res) {
   try {
     // const id = req.query.id;
-    const { userId } = req.user;
+    const { username } = req.user;
 
-    if (userId) {
+    if (username) {
       const body = req.body;
 
       // update the data
-      await UserModel.updateOne({ _id: userId }, body).exec();
+      await UserModel.updateOne({ username:username}, body).exec();
 
       return res.status(201).send({ msg: "User data updated successfully" });
     } else {

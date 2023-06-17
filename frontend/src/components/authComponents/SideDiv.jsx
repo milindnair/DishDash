@@ -21,9 +21,10 @@ const SideDiv = () => {
     try {
       const res = await verifyPassword({ username, password });
       const { token } = res.data;
-      localStorage.setItem('token', token);
+      sessionStorage.setItem('token', token);
       const user = await getUser({ username: username });
-      dispatch({ type: 'LOGIN', username: username , email: user.email,followers:user.followers,following:user.following,posts:user.posts });
+      console.log(user);
+      dispatch({ type: 'LOGIN', username: username , email: user.email,followers:user.followers,following:user.following,posts:user.posts,Bio:user.Bio,profilePic:user.profilePic });
       navigate('/');
     } catch (error) {
       console.error("Error:", error);
@@ -31,8 +32,8 @@ const SideDiv = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
+    const token = sessionStorage.getItem('token');
+    const storedUsername = sessionStorage.getItem('username');
 
     if (token && storedUsername) {
       dispatch({ type: 'LOGIN', username: storedUsername });

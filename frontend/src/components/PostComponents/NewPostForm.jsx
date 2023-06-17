@@ -59,7 +59,7 @@ const NewPostForm = () => {
     event.preventDefault();
   
     const caption = event.target[1].value;
-    const user = localStorage.getItem('username');
+    const user = sessionStorage.getItem('username');
     const comments = [];
     const imageUrls = [];
   

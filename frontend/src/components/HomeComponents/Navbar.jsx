@@ -22,7 +22,7 @@ const Navbar = () => {
   
     try {
       console.log(searchText);
-      if(searchText === localStorage.getItem("username")){
+      if(searchText === sessionStorage.getItem("username")){
         navigate("/profile");
       }
       else{

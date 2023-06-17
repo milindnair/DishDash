@@ -28,19 +28,19 @@ const Post = () => {
       if(isYuk){
         setIsYuk(false);
         setYuks(yuks-1);
-        await dislikePost({postId: postId , username: localStorage.getItem("username")});
+        await dislikePost({postId: postId , username: sessionStorage.getItem("username")});
       }
       else if(isYum){
         setIsYum(false);
         setIsYuk(true);
         setYuks(yuks+1);
         setYums(yums-1);
-        await dislikePost({postId: postId , username: localStorage.getItem("username")});
+        await dislikePost({postId: postId , username: sessionStorage.getItem("username")});
       }
       else{
         setIsYuk(true);
         setYuks(yuks+1);
-        await dislikePost({postId: postId , username: localStorage.getItem("username")});
+        await dislikePost({postId: postId , username: sessionStorage.getItem("username")});
       }
     }catch(error){
       console.log("Error:", error.message);
@@ -52,19 +52,19 @@ const Post = () => {
       if(isYum){
         setIsYum(false);
         setYums(yums-1);
-        await likePost({postId: postId , username: localStorage.getItem("username")});
+        await likePost({postId: postId , username: sessionStorage.getItem("username")});
       }
       else if(isYuk){
         setIsYuk(false);
         setIsYum(true); 
         setYuks(yuks-1);
         setYums(yums+1);
-        await likePost({postId: postId , username: localStorage.getItem("username")});
+        await likePost({postId: postId , username: sessionStorage.getItem("username")});
       }
       else{
         setIsYum(true);
         setYums(yums+1);
-        await likePost({postId: postId , username: localStorage.getItem("username")});
+        await likePost({postId: postId , username: sessionStorage.getItem("username")});
       }
     }catch(error){
       console.log("Error:", error.message);
@@ -84,7 +84,7 @@ const Post = () => {
         alert("Comment cannot be empty");
         return;
       }
-      const username = localStorage.getItem("username");
+      const username = sessionStorage.getItem("username");
       await addComment({ postId, username, text: commentText });
       setCommentText(""); // Clear the input field
 
@@ -98,7 +98,7 @@ const Post = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const username = localStorage.getItem("username");
+        const username = sessionStorage.getItem("username");
         const response = await getFeedPosts(username);
         console.log(response);
         setPosts(response);

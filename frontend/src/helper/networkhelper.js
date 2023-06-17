@@ -7,7 +7,7 @@ export async function followUser({username,userId}) {
         const data = {
             userId: userId,
             username: username,
-            loggedInUsername: localStorage.getItem('username'),
+            loggedInUsername: sessionStorage.getItem('username'),
         };
         console.log(data);
         const res = await axios.put('http://localhost:8080/api/followUser', data);
@@ -17,14 +17,14 @@ export async function followUser({username,userId}) {
     }
 };
 
-export  async function unfollowUser(logginInUser,username,userId) {
+export  async function unfollowUser(loggedInUser,username,userId) {
     try{
         const data = {
             userId: userId,
             username: username,
-            loggedInUsername: logginInUser,
+            loggedInUsername: loggedInUser,
         };
-        const res = await axios.post('http://localhost:8080/api/unfollowUser', data);
+        const res = await axios.put('http://localhost:8080/api/unfollowUser', data);
         return res;
     }catch(error){
         console.error(error);

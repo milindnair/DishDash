@@ -20,7 +20,7 @@ const Avatar = (props) => {
 
   const handleLogoutClick = () => {
     // Handle logout click logic here
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     dispatch({ type: 'LOGOUT' });
     navigate('/login');
 

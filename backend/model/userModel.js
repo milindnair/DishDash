@@ -24,23 +24,19 @@ export const UserSchema = new mongoose.Schema({
       type: String,
       default: 'public',
     },
-    following: [{
-      userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-      username: String,
-    }],
-    followers: [{
-      userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-      },
-      username: String,
-    }],
+    following: [String],
+    followers: [String],
     posts: {
       type: Number,
       default: 0,
+    },
+    Bio:{
+      type:String,
+      default:""
+    },
+    profilePic:{
+      type:String,
+      default:""
     },
   });
 

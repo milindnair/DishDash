@@ -1,8 +1,9 @@
 const Input = (props) => {
   return (
     <>
+      <label className="text-white text-xl">{props.label}</label>
         <input
-          className={`p-2 mt-8 rounded-xl border h-${props.size}`}
+          className={`p-2 rounded-xl border h-${props.size}`}
           type={props.type}
           name={props.name}
           placeholder={props.placeholder}
