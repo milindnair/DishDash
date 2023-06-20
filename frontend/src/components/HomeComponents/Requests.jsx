@@ -2,9 +2,12 @@ import Card from "./Card";
 import Avatar from "./Avatar";
 import Cook from "./cooking.png";
 import Button from "../authComponents/Button";
+import { Fragment , React } from "react";
+
 
 const Requests = () => {
     return(
+        <Fragment>
         <div className="flex flex-col gap-3 mt-3">
             <Card height={130} width={300} >
                 <div className="flex justify-between">
@@ -23,6 +26,7 @@ const Requests = () => {
 
             </Card>
         </div>
+        </Fragment>
     )
 };
 
