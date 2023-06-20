@@ -29,12 +29,11 @@ Welcome to DishDash, the ultimate social-media platform for foodies! Join a vibr
 
 ## Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript
+- React.js
 - Node.js
 - Express.js
 - MongoDB
+- TailwindCss
 
 ## Contributing
 
