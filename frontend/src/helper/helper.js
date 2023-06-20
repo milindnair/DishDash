@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 // axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 export async function authenticate(username){
@@ -20,29 +21,15 @@ export async function getUser({username}){
 }
 
 //register user function
-export async function registerUser(event){
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    // Get the form input values
-    const username = event.target.username.value;
-    const password = event.target.password.value;
-    const email = event.target.email.value;
-
-    // Create a user object with the input values
-    const user = { username, password, email };
-    console.log(user);
-
+export async function registerUser(user) {
     try {
-      // Send the POST request to the backend API
       const response = await axios.post('http://localhost:8080/api/register', user);
-
-      // Handle the response (optional)
-      console.log(response.data); // You can do something with the response data if needed
-    return Promise.resolve(msg);
-    }catch(error){
-        return Promise.reject(error);
+      console.log(response.data);
+      return response.data; // Return the response data
+    } catch (error) {
+      throw error; // Throw the error for the caller to handle
     }
-}
+  }
 
 //login function
 export async function verifyPassword({ username, password }) {

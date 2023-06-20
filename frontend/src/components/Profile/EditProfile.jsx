@@ -6,9 +6,11 @@ import Section from "../authComponents/Section";
 import Input from "../authComponents/Input";
 import Button from "../authComponents/Button";
 import { updateProfile } from "../../helper/updatehelper";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EditProfile = () => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -72,6 +74,7 @@ const EditProfile = () => {
         });
       }
       console.log(response);
+      navigate("/profile");
     } catch (err) {
       console.log(err);
     }
