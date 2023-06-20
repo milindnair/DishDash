@@ -6,8 +6,8 @@ const initialState = {
   isLoggedIn: sessionStorage.getItem('isLoggedIn') === 'true' || false,
   username: sessionStorage.getItem('username') || '',
   email: sessionStorage.getItem('email') || '',
-  followers: JSON.parse(sessionStorage.getItem('followers') || '[]'),
-  following: JSON.parse(sessionStorage.getItem('following') || '[]'),
+  followers: JSON.stringify(sessionStorage.getItem('followers') || []),
+  following: JSON.stringify(sessionStorage.getItem('following') || []),
   posts: sessionStorage.getItem('posts') || '',
   Bio:sessionStorage.getItem('Bio') || '',
 };

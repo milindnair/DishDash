@@ -11,6 +11,7 @@ import ProfileView from './components/Profile/ProfileView';
 import { useSelector } from 'react-redux';
 // import store from './store/store';
 import EditProfile from './components/Profile/EditProfile';
+import ErrorPage from './errorPage';
 
 function App() {
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/newpost" element={isLoggedIn ? <NewPostForm /> : <Navigate to="/login" />} />
         <Route path="/profile/:username" element={<ProfileView />} />
         <Route path="/editProfile" element={isLoggedIn ? <EditProfile /> : <Navigate to="/login" />} />
+        <Route path="/error" element={<ErrorPage/>} />
       </Routes>
     </Router>
       
