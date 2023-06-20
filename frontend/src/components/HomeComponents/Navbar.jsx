@@ -9,6 +9,7 @@ import { getUser } from "../../helper/helper";
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
+  const profilePic = sessionStorage.getItem("profilePic");
 
   const navigate = useNavigate();
   const NewPostHandler = () => {
@@ -56,15 +57,15 @@ const Navbar = () => {
           onClick={NewPostHandler}
         >
           <img src={Cook} alt="cooking" className="h-[25px] w-[40px] pl-4  " />
-          Create Post
+          Cook Post
         </button>
       </div>
 
       
       <Avatar
-        src={Cook}
+        src={profilePic}
         className={
-          "w-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"
+          "w-10 h-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"
         }
         alt="user"
       />

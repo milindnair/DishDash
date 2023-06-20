@@ -5,7 +5,7 @@ const Search = (props) => {
           type="search"
           id="default-search"
           className="block absolute right-[300px] top-1/2 transform -translate-y-1/2 w-[350px] p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search Mockups, Logos..."
+          placeholder="Search more Foodies,restaurants,recipes..."
           value={props.searchText} // Use the prop value for the input value
           onChange={(e) => props.setSearchText(e.target.value)} // Call the prop function to update the state
           required

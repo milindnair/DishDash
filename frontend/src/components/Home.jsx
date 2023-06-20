@@ -6,6 +6,7 @@ import RightDiv from "./HomeComponents/RightDiv";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { getUser } from "../helper/helper";
 
 
 const Home = () => {
@@ -21,6 +22,8 @@ const Home = () => {
   if(!isLoggedIn){
     return null;
   }
+
+
 
 
    return (

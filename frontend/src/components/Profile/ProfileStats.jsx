@@ -1,4 +1,5 @@
 const ProfileStats = (props) => {
+  // console.log(props.posts);
   return (
     <div className="flex justify-center mt-4 w-full items-center ml-[-5rem] ">
     <div className="w-64 flex justify-between">

@@ -22,12 +22,13 @@ const ProfileContainer = ({
   const navigate = useNavigate();
   const storefollowing = sessionStorage.getItem("following");
   //search  in storefollowing
-  console.log(storefollowing);
+  // console.log(storefollowing);
   const isFollowing = storefollowing.includes(username);
-  console.log(username);
-  console.log(isFollowing);
+  // console.log(username);
+  // console.log(isFollowing);
   const bio  = sessionStorage.getItem("Bio");
-  console.log(bio);
+  // console.log(bio);
+  // console.log(posts.length);
 
   const followHandler = async () => {
     console.log(userId);

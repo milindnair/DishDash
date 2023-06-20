@@ -3,12 +3,13 @@ import Card from "./Card";
 import Cook from "./cooking.png";
 
 const QuickPost = () => {
+  const profilePic = sessionStorage.getItem("profilePic");
   return (
     <div className="mt-4">
       <Card height={80} width={720}>
         
         <div className="flex justify-between">
-        <Avatar  src={Cook} className={" w-[40px] rounded-full mr-2"}/>
+        <Avatar  src={profilePic} className={" w-[40px] rounded-full mr-2"}/>
           <input
             type="text"
             className="w-full border border-gray-300 p-2 rounded-md focus:outline-none"

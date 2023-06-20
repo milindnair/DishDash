@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 
 const SideDiv = () => {
     const dispatch = useDispatch();
+    const username = sessionStorage.getItem("username");
+    const profilePic = sessionStorage.getItem("profilePic");
 
 
     const handleLogout = () => {
@@ -23,11 +25,11 @@ const SideDiv = () => {
 
     const navigate = useNavigate();
   return (
-    <div className="w-1/4 p-4  h-full text-[#fff]">
+    <div className="w-1/4 p-4  h-full text-[#fff] sticky top-0">
       <Card height={60} width={280}>
-        <div className="flex justify- ">
-          <Avatar src={Cook} className="w-10 rounded-full" alt="user" />
-          <span className="ml-2 mt-2 text-[#000]">Username</span>
+        <div className="flex justify-center ">
+          <Avatar src={profilePic} className="w-10 h-10 rounded-full" alt="user" />
+          <span className="ml-2 mt-2 text-[#000] text-xl">{username}</span>
         </div>
       </Card>
       <div className="mt-5">

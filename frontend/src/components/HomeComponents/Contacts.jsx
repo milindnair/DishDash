@@ -37,7 +37,7 @@ const Contacts = () => {
         <div className="flex items-center gap-3 overflow-hidden">
           <Avatar src={Cook} className="w-10 h-10 rounded-full" alt="user" />
           <div>
-            <p className="text-black font-semibold">milindnair</p>
+            <p className="text-black font-semibold">Ironman</p>
           </div>
         </div>
         <button
