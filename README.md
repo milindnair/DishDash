@@ -2,11 +2,11 @@
 
 Welcome to DishDash, the ultimate social-media platform for foodies! Join a vibrant community of food bloggers, enthusiasts, and culinary adventurers who share their love for food and discover exciting gastronomic experiences.
 
-![DishDash Screenshot](dishdash_screenshot.png)
-
 ## images
 
 ![Login Screenshot](./assets/login.png)
+![Homepage _ScreenShot](./assets/home.png)
+![Profile_ScreenShot](./assets/profile.png)
 
 ## Features
 
