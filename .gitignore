@@ -1,0 +1,4 @@
+node_modules
+config.js
+backend/cloudinary.config.js
+frontend/clourdinary.config.js
