@@ -2,7 +2,7 @@
 import { useState,useEffect,useRef } from "react";
 import Button from "../authComponents/Button";
 import Navbar from "../HomeComponents/Navbar";
-import Section from "../authComponents/Section";
+
 import Carousel from "./Carousel.jsx";
 import {createPost} from "../../helper/posthelper";
 import HashLoader from "react-spinners/HashLoader"; 
@@ -116,7 +116,8 @@ const NewPostForm = () => {
   return (
     <div>
       <Navbar />
-      <Section>
+      <section className="bg-[#212121] min-h-screen flex items-center justify-center">
+      <div className="bg-[#ff4545] flex rounded-2xl shadow-lg max-w-5xl p-5 items-center">
         <form
           onSubmit={handleSubmit}
           className="flex flex-row gap-4 h-[600px] w-[2000px]"
@@ -177,7 +178,8 @@ const NewPostForm = () => {
           </div>
         )}
          
-      </Section>
+      </div>
+      </section>
       <Snackbar
         ref={snackbarRef}
         message="Task Completed Successfully!"

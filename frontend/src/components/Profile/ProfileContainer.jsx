@@ -3,10 +3,11 @@ import Avatar from "../HomeComponents/Avatar";
 // import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import Cook from "../HomeComponents/cooking.png";
 import ProfileStats from "./ProfileStats";
-import { followUser,unfollowUser } from "../../helper/networkhelper";
+import { followUser, unfollowUser } from "../../helper/networkhelper";
 // import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import 'tailwindcss/tailwind.css'
 
 const ProfileContainer = ({
   username,
@@ -19,22 +20,23 @@ const ProfileContainer = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-   const storefollowing = sessionStorage.getItem('following');
+  const storefollowing = sessionStorage.getItem("following");
   //search  in storefollowing
   console.log(storefollowing);
-  const isFollowing = storefollowing.includes( username);
+  const isFollowing = storefollowing.includes(username);
   console.log(username);
   console.log(isFollowing);
+  const bio  = sessionStorage.getItem("Bio");
+  console.log(bio);
 
   const followHandler = async () => {
     console.log(userId);
     try {
       const res = await followUser({ username: username, userId: userId });
       console.log(res);
-      
+
       dispatch({ type: "FOLLOW", payload: username });
       window.location.reload();
-
     } catch (err) {
       console.log(err);
     }
@@ -43,8 +45,8 @@ const ProfileContainer = ({
   const UnFollowHandler = async () => {
     console.log(userId);
     try {
-      const loggedInUsername = sessionStorage.getItem('username')
-      const res = await unfollowUser(loggedInUsername,username,userId);
+      const loggedInUsername = sessionStorage.getItem("username");
+      const res = await unfollowUser(loggedInUsername, username, userId);
       console.log(res);
       dispatch({ type: "UNFOLLOW", payload: username });
       window.location.reload();
@@ -58,19 +60,27 @@ const ProfileContainer = ({
     // console.log("Edit Profile");
   };
 
-
   return (
-    <div className="flex flex-col items-center justify-center w-full pt-4 bg-[#212121]">
+    <div className="flex flex-col items-center justify-center w-full pt-4 bg-[#212121] font-sans">
       <div className="w-32 h-32 rounded-full overflow-hidden">
-        <Avatar src={profilePic} />
+        <img
+          className="w-full h-full object-cover"
+          src={profilePic}
+          alt="Rounded avatar"
+        />
       </div>
-      <p className="text-sm text-gray-500">@{username}</p>
+      <p className="text-lg text-[#edcbb4] mt-4 ">@{username}</p>
+      <p className="text-base text-[#bd9086]">{bio}</p>
+      
       <ProfileStats posts={posts} followers={followers} following={following} />
 
-      <div className="mt-4 flex">
+      <div className="mt-4 ml- flex">
         {from === "Profile" ? (
           <>
-            <button className="bg-gray-200 text-gray-700 rounded-full px-4 py-2 mr-4 flex items-center" onClick={editProfileHandler}>
+            <button
+              className="bg-gray-200 text-gray-700 rounded-full px-4 py-2 mr-4 flex items-center"
+              onClick={editProfileHandler}
+            >
               {/* <FaEdit className="mr-2" /> */}
               Edit Profile
             </button>

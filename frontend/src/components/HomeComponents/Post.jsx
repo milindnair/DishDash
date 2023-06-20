@@ -213,7 +213,8 @@ const Post = () => {
               <Button
                 onClick={commentHandler}
                 type="submit"
-                title="View Comments"
+                title={showComments ? "Hide Comments" : "Show Comments"}
+                color={"white"}
               />
             </div>
 

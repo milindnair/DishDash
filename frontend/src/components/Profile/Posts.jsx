@@ -35,7 +35,6 @@ const Posts = (props) => {
 
   return (
     <div className="flex flex-col items-center">
-      <p className="text-gray-700 text-lg font-bold mb-4">Posts</p>
       {!isPostsLoaded ? (
         <div className="text-center">
           <RingLoader color="#36d7b7" />

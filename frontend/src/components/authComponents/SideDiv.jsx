@@ -58,13 +58,14 @@ const SideDiv = () => {
       >
         <Input type="username" name="username" placeholder="username" />
         <Input type="password" name="password" placeholder="Password" />
-        <Button title={"Login"} type="submit" />
+        <div className="p-[1px]"></div>
+        <Button title={"Login"} type="submit" color="#eda1a1"/>
       </form>
-      <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
+      <div className="mt-5 text-base border-b border-[#002D74] py-4 text-[#002D74]">
         <a href="#">Forgot your password?</a>
       </div>
 
-      <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
+      <div className="mt-5 text-base flex justify-between items-center text-[#002D74]">
         <p>Don't have an account?</p>
         <Link to="/register">
           <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
