@@ -10,6 +10,15 @@ export async function followUser(req, res) {
 
     console.log(user);
 
+    // Check if the user is private
+    if (user.visibility === 'Private') {
+      // Add loggedInUsername to the user's requests list
+      user.requests.push(loggedInUsername);
+      await user.save();
+      return res.status(200).json({ success: true, user: user, message: 'Follow request sent.' });
+    }
+
+    // If the user is not private, proceed with following
     // Add loggedInUsername to the user's followers list
     user.followers.push(loggedInUsername);
     user.followersCount += 1;
@@ -27,6 +36,7 @@ export async function followUser(req, res) {
     res.status(500).json({ success: false, error: error.message });
   }
 }
+
 
 export async function unfollowUser(req, res) {
   try {
@@ -57,6 +67,56 @@ export async function unfollowUser(req, res) {
     await loggedInUserdata.save();
     res.status(200).json({ success: true, user });
   } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+}
+
+export async function acceptRequest(req, res) {
+  try{
+    const { followerUsername, loggedInUsername } = req.body;
+    console.log(req.body);
+    const followerUserdata = await User.findOne({ username: followerUsername });
+    const loggedInUserdata = await User.findOne({ username: loggedInUsername });
+
+    // Remove followerUsername from the loggedInUser's requests list
+    loggedInUserdata.requests = loggedInUserdata.requests.filter(
+      (user) => user !== followerUsername
+    );
+
+    // Add followerUsername to the loggedInUser's followers list
+    loggedInUserdata.followers.push(followerUsername);
+
+    // Add loggedInUsername to the followerUser's following list
+    followerUserdata.following.push(loggedInUsername);
+
+    await loggedInUserdata.save();
+    await followerUserdata.save();
+
+    res.status(200).json({ success: true, user: loggedInUserdata });
+  }catch(error){
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+export async function rejectRequest(req, res) {
+  try{
+    const { followerUsername, loggedInUsername } = req.body;
+    const followerUserdata = await User.findOne({ username: followerUsername });
+    const loggedInUserdata = await User.findOne({ username: loggedInUsername });
+
+    // Remove followerUsername from the loggedInUser's requests list
+    loggedInUserdata.requests = loggedInUserdata.requests.filter(
+      (user) => user !== followerUsername
+    );
+
+    await loggedInUserdata.save();
+    await followerUserdata.save();
+
+    res.status(200).json({ success: true, user: loggedInUserdata });
+
+  }catch(error){
     console.error(error);
     res.status(500).json({ success: false, error: error.message });
   }

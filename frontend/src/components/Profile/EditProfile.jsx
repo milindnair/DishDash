@@ -59,7 +59,8 @@ const EditProfile = () => {
       if (imageUrl) {
         updatedUserData.profilePic = imageUrl;
       }
-  
+      
+      console.log(updatedUserData);
       const response = await updateProfile(
         updatedUserData.username,
         token,
@@ -125,6 +126,8 @@ const EditProfile = () => {
             name="username"
             placeholder="Username"
             size="10"
+            required={true}
+            
           />
           <Input
             label="Email"
@@ -132,6 +135,7 @@ const EditProfile = () => {
             name="email"
             placeholder="Email"
             size="10"
+            required={true}
           />
           <div className="flex items-center">
             <label htmlFor="visibilityToggle" className="text-white">

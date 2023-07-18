@@ -4,10 +4,13 @@ import { faEllipsisH, faUser } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "./Avatar";
 import Cook from "./icons8-chef-60.png";
 import Card from "./Card";
+import Face6RoundedIcon from "@mui/icons-material/Face6Rounded";
+
 
 const Contacts = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profilePic = sessionStorage.getItem("profilePic");
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -35,7 +38,12 @@ const Contacts = () => {
     >
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-3 overflow-hidden">
-          <Avatar src={Cook} className="w-10 h-10 rounded-full" alt="user" />
+        {!profilePic ? <Face6RoundedIcon className={"w-10 h-10 rounded-full"} sx={{ height: "45px", width: "45px",color:"black" }} /> : <img
+            className={ "w-10 h-10 rounded-full"}
+            src={profilePic}
+            alt="Rounded avatar"
+
+          />}
           <div>
             <p className="text-black font-semibold">Ironman</p>
           </div>

@@ -30,3 +30,30 @@ export  async function unfollowUser(loggedInUser,username,userId) {
         console.error(error);
     }
 };
+
+export async function acceptRequest(loggedInUser,username) {
+    try{
+        const data = {
+            followerUsername: username,
+            loggedInUsername: loggedInUser,
+        };
+        console.log(data);
+        const res = await axios.put('http://localhost:8080/api/acceptRequest', data);
+        return res;
+    }catch(error){
+        console.error(error);
+    }
+}
+
+export async function rejectRequest(loggedInUser,username,userId) {
+    try{
+        const data = {
+            username: username,
+            loggedInUsername: loggedInUser,
+        };
+        const res = await axios.put('http://localhost:8080/api/rejectRequest', data);
+        return res;
+    }catch(error){
+        console.error(error);
+    }
+}

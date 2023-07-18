@@ -18,7 +18,6 @@ const RightDiv = () => {
       </div>
         <div>
           <Requests />
-          <Requests />
         </div>
       </div>
       <div className="mt-[50px]">
@@ -30,7 +29,6 @@ const RightDiv = () => {
         </div>
       </div>
         <div className="mt-5">
-            <Contacts />
             <Contacts />
         </div>
         

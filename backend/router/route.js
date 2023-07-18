@@ -33,10 +33,14 @@ router.route('/getPosts/:username').get(postcontroller.getPosts); // get all pos
 router.route('/getFeedPosts/:username').get(postcontroller.getFeedPosts); // get all posts on feed
 router.route('/addComment/:postId').post(postcontroller.addComment); // add comment to post
 
+
 router.route('/likePost').put(postcontroller.likePost); // like a post
 router.route('/unlikePost').put(postcontroller.unlikePost); // unlike a post
 router.route('/followUser').put(networkController.followUser); // follow a user
 router.route('/unfollowUser').put(networkController.unfollowUser); // unfollow a user
+router.route('/acceptRequest').put(networkController.acceptRequest); // accept a follow request
+router.route('/rejectRequest').put(networkController.rejectRequest); // reject a follow request
+
 
 
 

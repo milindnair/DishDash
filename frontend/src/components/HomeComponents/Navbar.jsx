@@ -6,6 +6,9 @@ import Search from "./Search";
 import axios from "axios";
 import { useState } from "react";
 import { getUser } from "../../helper/helper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Face6RoundedIcon from '@mui/icons-material/Face6Rounded';
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -20,20 +23,20 @@ const Navbar = () => {
 
   const searchHandler = async (event) => {
     event.preventDefault(); // Prevent page reload
-  
+
     try {
       console.log(searchText);
-      if(searchText === sessionStorage.getItem("username")){
+      if (searchText === sessionStorage.getItem("username")) {
         navigate("/profile");
       }
-      else{
+      else {
         navigate(`/profile/${searchText}`);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+
 
   return (
     <div className="bg-[#212121] relative border-b-2 p-3">
@@ -50,7 +53,7 @@ const Navbar = () => {
         <Search searchText={searchText} setSearchText={setSearchText} onClick={searchHandler} />
       </form>
 
- 
+
       <div>
         <button
           className="bg-[#ff4545] absolute top-1/2 w-[180px] transform -translate-y-1/2 right-[90px] text-[#fff] rounded-xl p-2 flex gap-4 "
@@ -61,14 +64,15 @@ const Navbar = () => {
         </button>
       </div>
 
-      
-      <Avatar
+
+      {/* {!profilePic ? <Face6RoundedIcon className={"absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"} sx={{height:"45px",width:"45px",color:"white"}}  /> : <Avatar
         src={profilePic}
         className={
           "w-10 h-10 absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full"
         }
         alt="user"
-      />
+      />} */}
+      <Avatar profilePic={profilePic} className={"absolute top-1/2 transform -translate-y-1/2 right-4 rounded-full bg-[white]"}  />
     </div>
   );
 };

@@ -8,27 +8,36 @@ import Resto_Events from "./icons8-celebration-60.png";
 import Logout from "./icons8-exit-60.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Face6RoundedIcon from "@mui/icons-material/Face6Rounded";
+
+
 
 const SideDiv = () => {
-    const dispatch = useDispatch();
-    const username = sessionStorage.getItem("username");
-    const profilePic = sessionStorage.getItem("profilePic");
+  const dispatch = useDispatch();
+  const username = sessionStorage.getItem("username");
+  const profilePic = sessionStorage.getItem("profilePic");
 
 
-    const handleLogout = () => {
-        // Handle logout click logic here
-        sessionStorage.removeItem('token');
-        dispatch({ type: 'LOGOUT' });
-        navigate('/login');
-    
-      };
 
-    const navigate = useNavigate();
+  const handleLogout = () => {
+    // Handle logout click logic here
+    sessionStorage.removeItem('token');
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login');
+
+  };
+
+  const navigate = useNavigate();
   return (
     <div className="w-1/4 p-4  h-full text-[#fff] sticky top-0">
       <Card height={60} width={280}>
         <div className="flex justify-center ">
-          <Avatar src={profilePic} className="w-10 h-10 rounded-full" alt="user" />
+          {!profilePic ? <Face6RoundedIcon className={"w-10 h-10 rounded-full"} sx={{ height: "45px", width: "45px",color:"black" }} /> : <img
+            className={ "w-10 h-10 rounded-full"}
+            src={profilePic}
+            alt="Rounded avatar"
+
+          />}
           <span className="ml-2 mt-2 text-[#000] text-xl">{username}</span>
         </div>
       </Card>
@@ -38,7 +47,7 @@ const SideDiv = () => {
             <li>
               <Card height={60} width={245} wantEffect={true}>
                 <div className="flex items-center justify-center gap-x-1" onClick={() => {
-                    navigate("/");
+                  navigate("/");
                 }}>
                   <FontAwesomeIcon
                     icon={faHomeUser}
@@ -51,8 +60,8 @@ const SideDiv = () => {
             </li>
             <li>
               <Card height={60} width={245} wantEffect={true}>
-                <div className="flex items-center justify-center gap-x-4" onClick={()=>{
-                    navigate("/profile");
+                <div className="flex items-center justify-center gap-x-4" onClick={() => {
+                  navigate("/profile");
                 }}>
                   <img src={ProfilePic} alt="profile" className="w-[35px]" />
                   <p className="text-black w-[90px]">Profile</p>
@@ -61,8 +70,8 @@ const SideDiv = () => {
             </li>
             <li>
               <Card height={60} width={245} wantEffect={true}>
-                <div className="flex items-center justify-center gap-x-4 " onClick={()=>{
-                    navigate("/restoevents");
+                <div className="flex items-center justify-center gap-x-4 " onClick={() => {
+                  navigate("/restoevents");
                 }}>
                   <img
                     src={Resto_Events}

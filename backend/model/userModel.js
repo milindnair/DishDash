@@ -22,10 +22,11 @@ export const UserSchema = new mongoose.Schema({
     profile: String,
     visibility: {
       type: String,
-      default: 'public',
+      default: 'Private',
     },
     following: [String],
     followers: [String],
+    requests: [String],
     posts: {
       type: Number,
       default: 0,
