@@ -37,7 +37,8 @@ useEffect(() => {
   const following = user.following ? user.following.length : 0;
 
   return (
-    <div className="container mx-auto h-screen bg-[#212121]">
+    
+    <div className=" h-screen w-screen bg-[#212121]">
         <Navbar />
       <ProfileContainer
         username={username}
@@ -49,6 +50,8 @@ useEffect(() => {
       />
         <PostSection user={sessionStorage.getItem('username')}/>
     </div>
+  
+
   );
 };
  

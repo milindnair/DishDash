@@ -29,7 +29,7 @@ const SideDiv = () => {
 
   const navigate = useNavigate();
   return (
-    <div className="w-1/4 p-4  h-full text-[#fff] sticky top-0">
+    <div className="w-1/4 p-4  h-screen text-[#fff] sticky top-0">
       <Card height={60} width={280}>
         <div className="flex justify-center ">
           {!profilePic ? <Face6RoundedIcon className={"w-10 h-10 rounded-full"} sx={{ height: "45px", width: "45px",color:"black" }} /> : <img

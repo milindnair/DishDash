@@ -28,13 +28,15 @@ const Home = () => {
 
    return (
     <>
+    <div className="h-full bg-[#212121]">
        <Navbar />       
-      <div className="flex h-full justify-between w-full bg-[#212121]">
+      <div className="flex h-full   justify-between w-full bg-[#212121]">
         <SideDiv />
         <MainDiv />
         <RightDiv />
         
         
+      </div>
       </div>
     </>
   );

@@ -93,3 +93,13 @@ export async function resetPassword({username , password}){
     }
 } 
 
+//get all users
+export async function getAllUsers(){
+    try{
+        const data = await axios.get('http://localhost:8080/api/getAllUsers');
+        return Promise.resolve(data);
+    }catch(error){
+        return Promise.reject({error});
+    }
+}
+

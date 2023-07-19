@@ -228,3 +228,12 @@ export async function resetPassword(req, res) {
     return res.status(500).send({ error });
   }
 }
+
+export async function getAllUsers(req, res) {
+  try {
+    const users = await UserModel.find({}).exec();
+    return res.status(200).send(users );
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+}

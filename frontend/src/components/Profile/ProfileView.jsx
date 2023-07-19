@@ -43,7 +43,7 @@ const ProfileView = () => {
   const ProfilePic = user.profilePic;
 
   return (
-    <div className="container mx-auto h-screen bg-[#212121]">
+    <div className="w-screen h-screen bg-[#212121]">
       <Navbar />
       <ProfileContainer
         username={username}

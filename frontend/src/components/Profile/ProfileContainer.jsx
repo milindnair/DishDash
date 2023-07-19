@@ -8,6 +8,7 @@ import { followUser, unfollowUser } from "../../helper/networkhelper";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import 'tailwindcss/tailwind.css'
+import Face6RoundedIcon from "@mui/icons-material/Face6Rounded";
 
 const ProfileContainer = ({
   username,
@@ -64,11 +65,18 @@ const ProfileContainer = ({
   return (
     <div className="flex flex-col items-center justify-center w-full pt-4 bg-[#212121] font-sans">
       <div className="w-32 h-32 rounded-full overflow-hidden">
-        <img
-          className="w-full h-full object-cover"
-          src={profilePic}
-          alt="Rounded avatar"
-        />
+      {!profilePic ? (
+                  <Face6RoundedIcon
+                    className="w-10 rounded-full"
+                    sx={{ height: "100%", width: "100%", color: "white" }}
+                  />
+                ) : (
+                  <img
+                    src={profilePic}
+                    className="w-10 rounded-full"
+                    alt="user"
+                  />
+                )}
       </div>
       <p className="text-lg text-[#edcbb4] mt-4 ">@{username}</p>
       <p className="text-base text-[#bd9086]">{bio}</p>
